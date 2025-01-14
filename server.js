@@ -31,7 +31,33 @@ Example Responses:
   }
 
 Add the required logic below to complete the API.
+
 */
+
+app.get('/assistant/greet', (req, res) => {
+  const name = req.query.name || 'Guest';
+  const dayOfWeek = new Date().toLocaleString('en-US', { weekday: 'long' });
+  let dayMessage = '';
+
+  switch (dayOfWeek) {
+      case 'Monday':
+          dayMessage = 'Happy Monday! Start your week with energy!';
+          break;
+      case 'Friday':
+          dayMessage = "It's Friday! The weekend is near!";
+          break;
+      default:
+          dayMessage = 'Have a wonderful day!';
+          break;
+  }
+
+  const response = {
+      welcomeMessage: `Hello, ${name}! Welcome to our assistant app!`,
+      dayMessage: dayMessage
+  };
+
+  res.json(response);
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
